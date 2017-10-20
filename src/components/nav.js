@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 class Nav extends Component {
 
   render() {
-    console.log(this.props.getpath); // use this to show active routes in UI
+    console.log("current route:",this.props.getpath); // use this to show active routes in UI
     return (
       <div>
         <Menu>

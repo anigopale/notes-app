@@ -1,19 +1,47 @@
 import React, { Component } from 'react';
 import { Form, Button, Header } from 'semantic-ui-react';
+import { Field, reduxForm } from 'redux-form';
 
 class Login extends Component {
+
+  renderField(field) {
+
+    return (
+      <div>
+        <label>{field.label}</label>
+        <input
+          {...field.input}
+          type={field.type}
+          placeholder={field.placeholder}
+          />
+      </div>
+    )
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
       <div>
         <Header as="h3">Enter Details</Header>
-        <Form>
+        <Form onSubmit={ handleSubmit((values)=> {console.log("values:",values);})  }>
           <Form.Field>
-            <label>User Name:</label>
-            <input placeholder='user name' />
+            <Field
+              label="Username:"
+              type="text"
+              name="username"
+              placeholder="enter username or email"
+              component={this.renderField}
+            />
           </Form.Field>
           <Form.Field>
-            <label>Password:</label>
-            <input type="password" placeholder='password' />
+            <Field
+              label="Password:"
+              name="password"
+              placeholder="enter password"
+              type="password"
+              component={this.renderField}
+            />
           </Form.Field>
 
           <Button type='submit'>Login</Button>
@@ -23,4 +51,6 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default reduxForm({
+  form: 'LoginForm'
+})(Login);
