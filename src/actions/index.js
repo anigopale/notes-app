@@ -39,7 +39,7 @@ export function signupUser(values) {
         })
       })
 
-      
+
   }
 }
 
@@ -50,4 +50,8 @@ export function signoutUser() {
 
 export function eraseMessage() {
   return { type: AUTH_MESSAGE, payload: "" }
+}
+
+export function searchItems(term) {
+  console.log("reached to searchItem",term);
 }

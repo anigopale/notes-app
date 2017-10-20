@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Form } from 'semantic-ui-react';
+import { searchItems } from '../../actions';
+import { connect } from 'react-redux';
 
 class Search extends Component {
   constructor(props){
@@ -12,9 +14,14 @@ class Search extends Component {
     console.log(this.state.term);
   }
 
+  onFormSubmit() {
+    this.props.searchItems(this.state.term);
+    this.setState({ term: "" });
+  }
+
   render() {
     return (
-      <Form onSubmit={() => this.props.searchItems(this.state.term)}>
+      <Form onSubmit={this.onFormSubmit.bind(this)}>
         <Form.Field>
           <input
             placeholder="search items"
@@ -27,4 +34,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default connect(null,{ searchItems})(Search);
