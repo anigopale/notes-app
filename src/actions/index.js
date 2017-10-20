@@ -10,12 +10,23 @@ export function loginUser(values) {
     const request = axios.post(`${ROOT_URL}/api/auth/token/`,
     values)
       .then((response) => {
-        console.log(response.data.token);
         dispatch({ type: AUTH_USER});
         localStorage.setItem('token', response.data.token);
         browserHistory.push('/');
       })
-      .catch((response) => {console.log("log response:",response)})
+
+
+  }
+}
+
+export function signupUser(values) {
+  return function(dispatch) {
+    const request = axios.post(`${ROOT_URL}/api/register/`, values)
+      .then((response) => {
+        console.log("inside then",response.payload);
+      })
+
+      console.log(request);
   }
 }
 

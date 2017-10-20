@@ -17,7 +17,7 @@ class Nav extends Component {
           </Menu.Item>
         </Link>,
         <Link to="/features">
-          <Menu.Item>
+          <Menu.Item active={this.props.getpath === '/features'}>
             Features
           </Menu.Item>
         </Link>

@@ -3,6 +3,7 @@ import { Header, Form, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { signupUser } from '../actions';
 
 class Signup extends Component {
 
@@ -30,11 +31,17 @@ class Signup extends Component {
     )
   }
 
+  onFormSubmit(values){
+    this.props.signupUser(values);
+    this.props.reset();
+  }
+
   render() {
+    const { handleSubmit } = this.props;
     return(
       <div>
         <Header as="h3">Enter Details</Header>
-        <Form>
+        <Form onSubmit={ handleSubmit(this.onFormSubmit.bind(this)) }>
           <Form.Field>
             <Field
               label="Username:"
@@ -48,7 +55,7 @@ class Signup extends Component {
           <Field
             label="Email:"
             type="text"
-            name="username"
+            name="email"
             placeholder="enter email"
             component={this.renderField}
           />
@@ -95,4 +102,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form:'SignupForm'
 })
-(connect(mapStateToProps)(Signup));
+(connect(mapStateToProps, { signupUser })(Signup));
