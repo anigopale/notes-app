@@ -48,6 +48,9 @@ class Nav extends Component {
     return (
       <div>
         <Menu>
+          <Link to='/'>
+            <Menu.Item active={this.props.getpath === '/'} name="Home" />
+          </Link>
           {this.renderNav()}
         </Menu>
       </div>
