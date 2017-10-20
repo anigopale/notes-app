@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { signoutUser } from '../actions';
 
 class Nav extends Component {
+
+
 
   renderNav() {
     if( this.props.auth ){
       return (
-        <Menu.Item>
-          Sign out
-        </Menu.Item>
+        <Link to="/signout">
+          <Menu.Item onClick={() => this.props.signoutUser() }>
+            Sign out
+          </Menu.Item>
+        </Link>
+
       )
     }
     return [
@@ -48,4 +54,4 @@ function mapStateToProps(state) {
   return { auth: state.auth }
 }
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps, { signoutUser })(Nav);
