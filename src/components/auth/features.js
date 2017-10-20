@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import Search from './search';
 
 class Features extends Component {
   render() {
     return (
-      <div>additional features, coming soon</div>
+      <div>
+        <Search />
+      </div>
     );
   }
 }
