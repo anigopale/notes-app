@@ -32,14 +32,14 @@ export function signupUser(values) {
           payload: "Account created successfully"
         })
       })
-      .catch(() => {
+      .catch((response) => {
         dispatch({
           type: AUTH_MESSAGE,
           payload: "Bad Sign up"
         })
       })
 
-      console.log(request);
+      
   }
 }
 

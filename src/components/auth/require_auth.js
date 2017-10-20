@@ -9,11 +9,11 @@ export default function(ComposedComponent) {
 
     componentWillMount() {
       if(!this.props.auth)
-        this.context.router.push('/');
+        this.context.router.push('/login');
     }
     componentWillUpdate(nextProps) {
       if(!nextProps.auth) {
-        this.context.router.push('/');
+        this.context.router.push('/login');
       }
     }
 
