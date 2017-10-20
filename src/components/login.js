@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button, Header } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
+import { loginUser } from '../actions';
+import { connect } from 'react-redux';
 
 class Login extends Component {
 
@@ -18,13 +20,17 @@ class Login extends Component {
     )
   }
 
+  onFormSubmit(values){
+    console.log("submit handler:",values);
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
     return (
       <div>
         <Header as="h3">Enter Details</Header>
-        <Form onSubmit={ handleSubmit((values)=> {console.log("values:",values);})  }>
+        <Form onSubmit={ handleSubmit(this.onFormSubmit.bind(this)) }>
           <Form.Field>
             <Field
               label="Username:"
@@ -43,7 +49,6 @@ class Login extends Component {
               component={this.renderField}
             />
           </Form.Field>
-
           <Button type='submit'>Login</Button>
         </Form>
       </div>
@@ -53,4 +58,6 @@ class Login extends Component {
 
 export default reduxForm({
   form: 'LoginForm'
-})(Login);
+})(
+  connect(null,{ loginUser })(Login)
+);
