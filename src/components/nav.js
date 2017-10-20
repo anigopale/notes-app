@@ -17,12 +17,15 @@ class Nav extends Component {
               Log in
             </Menu.Item>
           </Link>
-          
-          <Menu.Item
-            name='signup'
-            >
-            Sign up
-          </Menu.Item>
+
+          <Link to="/signup">
+            <Menu.Item
+              name='signup'
+              active={this.props.getpath === '/signup'}
+              >
+              Sign up
+            </Menu.Item>
+          </Link>
         </Menu>
       </div>
     )

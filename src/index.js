@@ -9,6 +9,7 @@ import App from './components/app';
 import Test from './components/test';
 import Header from './components/nav';
 import Login from './components/login';
+import Signup from './components/signup';
 import Home from './components/home';
 import reducers from './reducers';
 
@@ -21,7 +22,7 @@ ReactDOM.render(
         <IndexRoute component={Home} />
         <Route path="nested" component={Test} />
         <Route path="login" component={Login} />
-
+        <Route path="signup" component={Signup} />
       </Route>
     </Router>
   </Provider>
