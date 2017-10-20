@@ -22,6 +22,7 @@ class Login extends Component {
 
   onFormSubmit(values){
     console.log("submit handler:",values);
+    this.props.loginUser(values);
   }
 
   render() {

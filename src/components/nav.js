@@ -1,35 +1,51 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 class Nav extends Component {
 
+  renderNav() {
+    if( this.props.auth ){
+      return (
+        <Menu.Item>
+          Sign out
+        </Menu.Item>
+      )
+    }
+    return [
+      <Link to="/login">
+        <Menu.Item
+          active={this.props.getpath === '/login'}
+          >
+          Log in
+        </Menu.Item>
+      </Link>,
+      <Link to="/signup">
+        <Menu.Item
+          active={this.props.getpath === '/signup'}
+          >
+          Sign up
+        </Menu.Item>
+      </Link>
+    ];
+  }
+
   render() {
     console.log("current route:",this.props.getpath); // use this to show active routes in UI
+    console.log("auth status:", this.props.auth);
     return (
       <div>
         <Menu>
-          <Link to="/login">
-            <Menu.Item
-              name='login'
-              active={this.props.getpath === '/login'}
-              >
-              Log in
-            </Menu.Item>
-          </Link>
-
-          <Link to="/signup">
-            <Menu.Item
-              name='signup'
-              active={this.props.getpath === '/signup'}
-              >
-              Sign up
-            </Menu.Item>
-          </Link>
+          {this.renderNav()}
         </Menu>
       </div>
     )
   }
 }
 
-export default Nav;
+function mapStateToProps(state) {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps)(Nav);
