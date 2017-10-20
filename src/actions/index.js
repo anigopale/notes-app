@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AUTH_USER, UNAUTH_USER, AUTH_MESSAGE } from './types';
 import { browserHistory } from 'react-router';
 
-const ROOT_URL = "https://notes-using-drf.herokuapp.com/"
+const ROOT_URL = "https://notes-using-drf.herokuapp.com"
 
 export function loginUser(values) {
   return function(dispatch) {
@@ -53,5 +53,12 @@ export function eraseMessage() {
 }
 
 export function searchItems(term) {
-  console.log("reached to searchItem",term);
+
+  console.log("reached to searchItem, token",term, localStorage.getItem('token'));
+    axios.get(`${ROOT_URL}/api/note/`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+  })
+    .then(response => {
+      console.log(response);
+    })
 }
