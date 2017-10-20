@@ -27,7 +27,16 @@ export function signupUser(values) {
   return function(dispatch) {
     const request = axios.post(`${ROOT_URL}/api/register/`, values)
       .then((response) => {
-        console.log("inside then",response.payload);
+        dispatch({
+          type: AUTH_MESSAGE,
+          payload: "Account created successfully"
+        })
+      })
+      .catch(() => {
+        dispatch({
+          type: AUTH_MESSAGE,
+          payload: "Bad Sign up"
+        })
       })
 
       console.log(request);

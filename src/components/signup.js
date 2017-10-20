@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Header, Form, Button } from 'semantic-ui-react';
+import { Header, Form, Button, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { signupUser } from '../actions';
+import { signupUser, eraseMessage } from '../actions';
 
 class Signup extends Component {
+  constructor(props){
+    super(props);
+    this.props.eraseMessage();
+  }
 
     componentWillMount() {
       if(this.props.auth) {
@@ -34,6 +38,17 @@ class Signup extends Component {
   onFormSubmit(values){
     this.props.signupUser(values);
     this.props.reset();
+  }
+
+  renderMessage() {
+    if(this.props.message)
+    return(
+      <Message>
+        <Message.Header>
+          {this.props.message}
+        </Message.Header>
+      </Message>
+    );
   }
 
   render() {
@@ -89,6 +104,7 @@ class Signup extends Component {
           </Form.Field>
 
           <Button type='submit'>Sign up</Button>
+          {this.renderMessage()}
         </Form>
       </div>
     )
@@ -96,10 +112,10 @@ class Signup extends Component {
 }
 
 function mapStateToProps(state) {
-  return { auth: state.auth };
+  return { auth: state.auth, message: state.message };
 }
 
 export default reduxForm({
   form:'SignupForm'
 })
-(connect(mapStateToProps, { signupUser })(Signup));
+(connect(mapStateToProps, { signupUser, eraseMessage })(Signup));
