@@ -12,12 +12,20 @@ import Login from './components/login';
 import Signup from './components/signup';
 import Home from './components/home';
 import Signout from './components/signout';
+import Features from './components/auth/features';
+import { AUTH_USER } from './actions/types';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+const token = localStorage.getItem('token');
+if (token) {
+  store.dispatch({ type: AUTH_USER })
+}
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} >
         <IndexRoute component={Home} />
@@ -25,6 +33,7 @@ ReactDOM.render(
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
         <Route path="signout" component={Signout} />
+        <Route path="features" component={Features} />
       </Route>
     </Router>
   </Provider>

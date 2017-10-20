@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import { Header, Form, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class Signup extends Component {
+
+    componentWillMount() {
+      if(this.props.auth) {
+        browserHistory.push('/');
+      }
+    }
+    componentWillUpdate() {
+      if(this.props.auth) {
+        browserHistory.push('/');
+      }
+    }
+
   render() {
     return(
       <div>
@@ -31,4 +45,8 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
+export default connect(mapStateToProps)(Signup);

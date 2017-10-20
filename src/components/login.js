@@ -3,11 +3,23 @@ import { Form, Button, Header } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import { loginUser } from '../actions';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class Login extends Component {
 
-  renderField(field) {
+  componentWillMount() {
+    if(this.props.auth) {
+      browserHistory.push('/');
+    }
+  }
+  componentWillUpdate() {
+    if(this.props.auth) {
+      browserHistory.push('/');
+    }
+  }
 
+
+  renderField(field) {
     return (
       <div>
         <label>{field.label}</label>
@@ -23,8 +35,7 @@ class Login extends Component {
   onFormSubmit(values){
     console.log("submit handler:",values);
     this.props.loginUser(values);
-    const { resetForm } = this.props;
-    resetForm();
+    this.props.reset();
   }
 
   render() {
@@ -59,8 +70,12 @@ class Login extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return { auth: state.auth }
+}
+
 export default reduxForm({
   form: 'LoginForm'
 })(
-  connect(null,{ loginUser })(Login)
+  connect(mapStateToProps,{ loginUser })(Login)
 );
