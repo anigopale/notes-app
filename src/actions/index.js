@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, UNAUTH_USER } from './types';
+import { AUTH_USER, UNAUTH_USER, AUTH_MESSAGE } from './types';
 import { browserHistory } from 'react-router';
 
 const ROOT_URL = "https://notes-using-drf.herokuapp.com/"
@@ -14,8 +14,12 @@ export function loginUser(values) {
         localStorage.setItem('token', response.data.token);
         browserHistory.push('/');
       })
-
-
+      .catch(() => {
+        dispatch({
+          type: AUTH_MESSAGE ,
+          payload: "Bad login"
+        })
+      })
   }
 }
 
@@ -33,4 +37,8 @@ export function signupUser(values) {
 export function signoutUser() {
   localStorage.removeItem('token');
   return { type: UNAUTH_USER };
+}
+
+export function eraseMessage() {
+  return { type: AUTH_MESSAGE, payload: "" }
 }

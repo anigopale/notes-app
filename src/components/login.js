@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { Form, Button, Header } from 'semantic-ui-react';
+import { Form, Button, Header, Message, Icon } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
-import { loginUser } from '../actions';
+import { loginUser, eraseMessage } from '../actions';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { loading : false }
+    this.props.eraseMessage();
+  }
 
   componentWillMount() {
     if(this.props.auth) {
@@ -33,9 +38,27 @@ class Login extends Component {
   }
 
   onFormSubmit(values){
+    this.setState({loading: true})
     console.log("submit handler:",values);
     this.props.loginUser(values);
     this.props.reset();
+  }
+
+  renderError() {
+    if(this.props.error) {
+      return(
+        <Message>
+          <Message.Header>
+            {this.props.error}
+          </Message.Header>
+          <p>Don't have an account? Sign up!</p>
+        </Message>
+      )
+    }
+  }
+  renderLoading() {
+    if(this.state.loading && this.props.error == "")
+    return (<Icon name='circle notched' loading />)
   }
 
   render() {
@@ -64,6 +87,8 @@ class Login extends Component {
             />
           </Form.Field>
           <Button type='submit'>Login</Button>
+          {this.renderError()}
+          {this.renderLoading()}
         </Form>
       </div>
     )
@@ -71,11 +96,11 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  return { auth: state.auth }
+  return { auth: state.auth , error: state.message }
 }
 
 export default reduxForm({
   form: 'LoginForm'
 })(
-  connect(mapStateToProps,{ loginUser })(Login)
+  connect(mapStateToProps,{ loginUser, eraseMessage })(Login)
 );
