@@ -14,7 +14,7 @@ export default class App extends Component {
           </Header>
           <Nav getpath={this.props.location.pathname} />
           <Divider hidden />
-          <Container text>
+          <Container>
             {this.props.children}
         </Container>
       </Container>

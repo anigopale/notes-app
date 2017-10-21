@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Header, Message, Icon } from 'semantic-ui-react';
+import { Form, Button, Header, Message, Icon, Container } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import { loginUser, eraseMessage } from '../actions';
 import { connect } from 'react-redux';
@@ -65,7 +65,7 @@ class Login extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
+      <Container text>
         <Header as="h3">Enter Details</Header>
         <Form onSubmit={ handleSubmit(this.onFormSubmit.bind(this)) }>
           <Form.Field>
@@ -90,7 +90,7 @@ class Login extends Component {
           {this.renderError()}
           {this.renderLoading()}
         </Form>
-      </div>
+      </Container>
     )
   }
 }

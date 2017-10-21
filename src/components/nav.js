@@ -11,17 +11,18 @@ class Nav extends Component {
   renderNav() {
     if( this.props.auth ){
       return [
-        <Link to="/signout"  onClick={() => this.props.signoutUser() }>
-          <Menu.Item>
-            Sign out
-          </Menu.Item>
-        </Link>,
         <Link to="/features">
           <Menu.Item active={this.props.getpath === '/features'}>
             Features
           </Menu.Item>
-        </Link>
-
+        </Link>,
+        <Menu.Menu position="right">
+          <Link to="/signout"  onClick={() => this.props.signoutUser() }>
+            <Menu.Item>
+              Sign out
+            </Menu.Item>
+          </Link>
+        </Menu.Menu>
       ];
     }
     return [

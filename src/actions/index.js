@@ -55,8 +55,10 @@ export function eraseMessage() {
 export function searchItems(term) {
 
   console.log("reached to searchItem, token",term, localStorage.getItem('token'));
+  const encodedToken = window.btoa(localStorage.token);
+  console.log(encodedToken);
     axios.get(`${ROOT_URL}/api/note/`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+      headers: { Authorization: `Basic YWRtaW46bm90ZXMxMjM0`}
   })
     .then(response => {
       console.log(response);

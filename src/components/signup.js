@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Form, Button, Message } from 'semantic-ui-react';
+import { Header, Form, Button, Message, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
@@ -54,7 +54,7 @@ class Signup extends Component {
   render() {
     const { handleSubmit } = this.props;
     return(
-      <div>
+      <Container text>
         <Header as="h3">Enter Details</Header>
         <Form onSubmit={ handleSubmit(this.onFormSubmit.bind(this)) }>
           <Form.Field>
@@ -106,7 +106,7 @@ class Signup extends Component {
           <Button type='submit'>Sign up</Button>
           {this.renderMessage()}
         </Form>
-      </div>
+      </Container>
     )
   }
 }
