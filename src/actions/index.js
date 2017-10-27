@@ -53,14 +53,16 @@ export function eraseMessage() {
 }
 
 export function searchItems(term) {
-
   console.log("reached to searchItem, token",term, localStorage.getItem('token'));
-  const encodedToken = window.btoa(localStorage.token);
-  console.log(encodedToken);
-    axios.get(`${ROOT_URL}/api/note/`, {
-      headers: { Authorization: `Basic YWRtaW46bm90ZXMxMjM0`}
-  })
+  axios("https://jsonplaceholder.typicode.com/posts/1")
+  .then( response => console.log(response))
+
+  const request = axios(`https://admin:notes1234@notes-using-drf.herokuapp.com/api/note/`)
     .then(response => {
-      console.log(response);
+      console.log(response.headers);
     })
+    .catch(response => {
+      console.log(response);
+  })
+  console.log("this is request:", request);
 }

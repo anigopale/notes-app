@@ -20,21 +20,21 @@ class Features extends Component {
   render() {
     return (
       <div>
-        <Grid>
-          <Grid.Column width={4}>
-            <Menu pointing vertical fluid secondary>
+
+
+            <Menu pointing fluid secondary>
               <Menu.Item name="search" active={this.state.activename === 'search'} onClick={() => this.setState({activename: 'search'})} />
               <Menu.Item name="show" active={this.state.activename === 'show'} onClick={() => this.setState({activename: 'show'})} >
                 Show All
               </Menu.Item>
               <Menu.Item name="create" active={this.state.activename === 'create'} onClick={() => this.setState({activename: 'create'})} />
             </Menu>
-          </Grid.Column>
 
-          <Grid.Column width={12}>
+
+
             {this.renderComponent()}
-          </Grid.Column>
-        </Grid>
+
+        
       </div>
     );
   }
