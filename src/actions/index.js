@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, UNAUTH_USER, AUTH_MESSAGE } from './types';
+import { AUTH_USER, UNAUTH_USER, AUTH_MESSAGE, POST_NOTES } from './types';
 import { browserHistory } from 'react-router';
 
 const ROOT_URL = "https://notes-using-drf.herokuapp.com"
@@ -65,4 +65,14 @@ export function searchItems(term) {
       console.log(response);
   })
   console.log("this is request:", request);
+}
+
+
+export function postNotes(text, title) {
+  console.log("data reached to postNotes(),",text,title);
+  localStorage.setItem(title, text);
+  return {
+    type: POST_NOTES,
+    payload: title
+  }
 }

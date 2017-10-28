@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Grid, TextArea, Segment, Responsive, Button } from 'semantic-ui-react';
 import marked from 'marked';
+import { connect } from 'react-redux';
+import { postNotes } from '../../actions';
 
 
 class Create extends Component {
@@ -51,6 +53,10 @@ class Create extends Component {
     return 1;
   }
 
+  handleSubmit() {
+    this.props.postNotes(this.state.text, this.state.title);
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -64,7 +70,7 @@ class Create extends Component {
                 <Form>
                   <Form.Group>
                     <Button onClick={() => {this.setState({ text: "", title: "" })}} secondary>Clear</Button>
-                    <Button primary>Save</Button>
+                    <Button primary onClick={this.handleSubmit.bind(this)} >Save</Button>
                     <Button onClick={() => {this.setState({preview: !this.state.preview })}}>Toggle Preview</Button>
                   </Form.Group>
 
@@ -85,4 +91,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default connect(null,{ postNotes })(Create);

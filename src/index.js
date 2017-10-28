@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -24,6 +25,7 @@ const token = localStorage.getItem('token');
 if (token) {
   store.dispatch({ type: AUTH_USER })
 }
+
 
 ReactDOM.render(
   <Provider store={store}>

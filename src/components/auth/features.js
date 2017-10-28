@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './search';
 import Create from './create';
+import Show from './show';
 import { Menu, Segment, Grid } from 'semantic-ui-react';
 
 class Features extends Component {
@@ -14,7 +15,8 @@ class Features extends Component {
       return <Search />
     if(this.state.activename == 'create')
       return <Create />
-    return <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    if(this.state.activename == 'show')
+      return <Show />
   }
 
   render() {
@@ -34,7 +36,7 @@ class Features extends Component {
 
             {this.renderComponent()}
 
-        
+
       </div>
     );
   }
