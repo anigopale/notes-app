@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import marked from 'marked';
-import { Segment, Button } from 'semantic-ui-react';
-
+import { Segment, Button, Container } from 'semantic-ui-react';
+import { onDelete } from '../../actions';
+import { connect } from 'react-redux';
 
 class Show extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Show extends Component {
     this.handleClick=this.handleClick.bind(this);
     this.setMarkup=this.setMarkup.bind(this);
     this.renderText=this.renderText.bind(this);
+    this.handleDelete=this.handleDelete.bind(this);
 
     this.state = { titles: [], title: "", text: "", clicked:false }
     for ( var key in localStorage ) {
@@ -18,6 +20,7 @@ class Show extends Component {
         this.state.titles = _.uniq([...this.state.titles, key]);
     }
   }
+
 
   renderTitles() {
     if(!this.state.clicked)
@@ -43,12 +46,18 @@ class Show extends Component {
       return (
       <div>
         <Button onClick={()=>{this.setState({clicked: false})}} primary>Back</Button>
-        <Button color="red">Delete</Button>
+        <Button color="red" onClick={this.handleDelete} >Delete</Button>
         <Segment>
           <div dangerouslySetInnerHTML={this.setMarkup()} />
         </Segment>
       </div>
     )
+  }
+
+  handleDelete() {
+    this.setState({ titles: _.without(this.state.titles, this.state.title), title: "", text: "", clicked:false });
+    this.props.onDelete(this.state.title);
+    console.log("after this.setstate",this.state);
   }
 
   handleClick(event) {
@@ -61,10 +70,12 @@ class Show extends Component {
   render() {
     return (
       <div>
-        {this.renderTitles()}
+        <Container text>
+          {this.renderTitles()}
+        </Container>
         {this.renderText()}
       </div>
     )
   }
 }
-export default Show;
+export default connect(null, {onDelete})(Show);

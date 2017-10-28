@@ -76,3 +76,8 @@ export function postNotes(text, title) {
     payload: title
   }
 }
+
+export function onDelete(title) {
+  localStorage.removeItem(title);
+  return { type: "ONDELETE"}
+}
