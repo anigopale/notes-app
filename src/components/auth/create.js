@@ -6,18 +6,23 @@ import marked from 'marked';
 class Create extends Component {
   constructor(props){
     super(props);
-    this.state = { text: "" };
+    this.state = { text: "", title: "" };
     this.setMarkup=this.setMarkup.bind(this);
   }
 
   setMarkup() {
     let text = marked(this.state.text, {sanitize:true});
+    let title = (`<h1>${this.state.title}</h1>`)
     console.log("text begins here:",text);
-    return { __html: text };
+    return { __html: title+text };
   }
 
   onTextChange(event) {
     this.setState({ text: event.target.value })
+  }
+
+  onTitleChange(event) {
+    this.setState({ title: event.target.value })
   }
 
   renderPreview(){
@@ -41,8 +46,14 @@ class Create extends Component {
               <Segment>
 
                 <Form>
-                  <Button onClick={() => {this.setState({text: ""})}}>Clear</Button>
-                  <TextArea onChange={this.onTextChange.bind(this)} value={this.state.text} placeholder="enter text here" />
+                  <Form.Group>
+                    <Button onClick={() => {this.setState({text: ""})}} secondary>Clear</Button>
+                    <Button primary>Save</Button>
+                  </Form.Group>
+
+                    <Form.Input label="title" onChange={this.onTitleChange.bind(this)} ></Form.Input>
+                    <TextArea onChange={this.onTextChange.bind(this)} value={this.state.text} placeholder="enter text here" />
+
                 </Form>
               </Segment>
             </div>
