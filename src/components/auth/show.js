@@ -4,6 +4,7 @@ import marked from 'marked';
 import { Segment, Button, Container } from 'semantic-ui-react';
 import { onDelete } from '../../actions';
 import { connect } from 'react-redux';
+import {saveAs} from 'file-saver';
 
 class Show extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Show extends Component {
     this.setMarkup=this.setMarkup.bind(this);
     this.renderText=this.renderText.bind(this);
     this.handleDelete=this.handleDelete.bind(this);
+    this.onDownload=this.onDownload.bind(this);
 
     this.state = { titles: [], title: "", text: "", clicked:false }
     for ( var key in localStorage ) {
@@ -47,11 +49,19 @@ class Show extends Component {
       <div>
         <Button onClick={()=>{this.setState({clicked: false})}} primary>Back</Button>
         <Button color="red" onClick={this.handleDelete} >Delete</Button>
+        <Button secondary onClick={this.onDownload}>Download</Button>
         <Segment>
           <div dangerouslySetInnerHTML={this.setMarkup()} />
         </Segment>
       </div>
     )
+  }
+
+  onDownload() {
+    var text = this.state.text;
+    var filename = this.state.title;
+    var blob = new Blob([text], {type: "text/plain"});
+    saveAs(blob, filename+".txt");
   }
 
   handleDelete() {
