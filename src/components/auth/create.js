@@ -12,7 +12,7 @@ class Create extends Component {
 
   setMarkup() {
     let text = marked(this.state.text, {sanitize:true});
-    let title = (`<h1>${this.state.title}</h1>`)
+    let title = (`<h1>${this.state.title}</h1>`);
     console.log("text begins here:",text);
     return { __html: title+text };
   }
@@ -26,7 +26,7 @@ class Create extends Component {
   }
 
   renderPreview(){
-    if(!this.state.text)
+    if(!this.state.text && !this.state.title)
       return <div>Your text will appear here</div>
     return (
       <Segment>
