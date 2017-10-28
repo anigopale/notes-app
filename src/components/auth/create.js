@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Grid, TextArea, Segment, Responsive } from 'semantic-ui-react';
+import { Form, Grid, TextArea, Segment, Responsive, Button } from 'semantic-ui-react';
 import marked from 'marked';
+
 
 class Create extends Component {
   constructor(props){
@@ -11,7 +12,7 @@ class Create extends Component {
 
   setMarkup() {
     let text = marked(this.state.text, {sanitize:true});
-    console.log(text);
+    console.log("text begins here:",text);
     return { __html: text };
   }
 
@@ -36,16 +37,20 @@ class Create extends Component {
         <Grid.Row columns={2}>
           <Grid.Column>
             <div>
-              Editor
-              <Form>
-                <TextArea onChange={this.onTextChange.bind(this)}/>
-              </Form>
+              <h2>Editor</h2>
+              <Segment>
+
+                <Form>
+                  <Button onClick={() => {this.setState({text: ""})}}>Clear</Button>
+                  <TextArea onChange={this.onTextChange.bind(this)} value={this.state.text} placeholder="enter text here" />
+                </Form>
+              </Segment>
             </div>
           </Grid.Column>
 
           <Grid.Column>
             <div>
-              Preview
+              <h2>Preview</h2>
               {this.renderPreview()}
             </div>
           </Grid.Column>
