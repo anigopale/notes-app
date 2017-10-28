@@ -47,11 +47,11 @@ class Create extends Component {
 
                 <Form>
                   <Form.Group>
-                    <Button onClick={() => {this.setState({text: ""})}} secondary>Clear</Button>
+                    <Button onClick={() => {this.setState({ text: "", title: "" })}} secondary>Clear</Button>
                     <Button primary>Save</Button>
                   </Form.Group>
 
-                    <Form.Input label="title" onChange={this.onTitleChange.bind(this)} ></Form.Input>
+                    <Form.Input label="title" onChange={this.onTitleChange.bind(this)} value={this.state.title} placeholder="enter title" ></Form.Input>
                     <TextArea onChange={this.onTextChange.bind(this)} value={this.state.text} placeholder="enter text here" />
 
                 </Form>
