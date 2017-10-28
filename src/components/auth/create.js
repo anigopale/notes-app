@@ -6,7 +6,7 @@ import marked from 'marked';
 class Create extends Component {
   constructor(props){
     super(props);
-    this.state = { text: "", title: "" };
+    this.state = { text: "", title: "", preview: false };
     this.setMarkup=this.setMarkup.bind(this);
   }
 
@@ -35,11 +35,27 @@ class Create extends Component {
     );
   }
 
+  renderPreviewDiv() {
+    if(this.state.preview)
+    return (
+      <div>
+        <h2>Preview</h2>
+        {this.renderPreview()}
+      </div>
+  );
+  }
+
+  handleColumns() {
+    if(this.state.preview)
+      return 2;
+    return 1;
+  }
 
   render() {
+    console.log(this.state);
     return (
       <Grid>
-        <Grid.Row columns={2}>
+        <Grid.Row columns={this.handleColumns()}>
           <Grid.Column>
             <div>
               <h2>Editor</h2>
@@ -49,6 +65,7 @@ class Create extends Component {
                   <Form.Group>
                     <Button onClick={() => {this.setState({ text: "", title: "" })}} secondary>Clear</Button>
                     <Button primary>Save</Button>
+                    <Button onClick={() => {this.setState({preview: !this.state.preview })}}>Toggle Preview</Button>
                   </Form.Group>
 
                     <Form.Input label="title" onChange={this.onTitleChange.bind(this)} value={this.state.title} placeholder="enter title" ></Form.Input>
@@ -60,10 +77,7 @@ class Create extends Component {
           </Grid.Column>
 
           <Grid.Column>
-            <div>
-              <h2>Preview</h2>
-              {this.renderPreview()}
-            </div>
+            {this.renderPreviewDiv()}
           </Grid.Column>
         </Grid.Row>
       </Grid>
