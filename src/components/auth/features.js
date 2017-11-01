@@ -24,7 +24,7 @@ class Features extends Component {
       <div>
 
 
-            <Menu pointing fluid secondary>
+            <Menu fluid secondary>
               <Menu.Item name="search" active={this.state.activename === 'search'} onClick={() => this.setState({activename: 'search'})} />
               <Menu.Item name="show" active={this.state.activename === 'show'} onClick={() => this.setState({activename: 'show'})} >
                 Show All

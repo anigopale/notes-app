@@ -4,7 +4,7 @@ import marked from 'marked';
 import { Segment, Button, Container } from 'semantic-ui-react';
 import { onDelete } from '../../actions';
 import { connect } from 'react-redux';
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 
 class Show extends Component {
   constructor(props) {

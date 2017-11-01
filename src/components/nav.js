@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { signoutUser } from '../actions';
@@ -19,7 +19,7 @@ class Nav extends Component {
         <Menu.Menu position="right">
           <Link to="/signout"  onClick={() => this.props.signoutUser() }>
             <Menu.Item>
-              Sign out
+              <Segment color="white">Sign out</Segment>
             </Menu.Item>
           </Link>
         </Menu.Menu>
@@ -48,7 +48,7 @@ class Nav extends Component {
     console.log("auth status:", this.props.auth);
     return (
       <div>
-        <Menu>
+        <Menu inverted secondary pointing>
           <Link to='/'>
             <Menu.Item active={this.props.getpath === '/'} name="Home" />
           </Link>
