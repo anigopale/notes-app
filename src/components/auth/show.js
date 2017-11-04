@@ -16,7 +16,7 @@ class Show extends Component {
     this.handleDelete=this.handleDelete.bind(this);
     this.onDownload=this.onDownload.bind(this);
 
-    this.state = { titles: [], title: "", text: "", clicked:false, markup: false }
+    this.state = { titles: [], title: "", text: "", clicked:false, markup: false, hover: "" }
     for ( var key in localStorage ) {
       if(key != 'token')
         this.state.titles = _.uniq([...this.state.titles, key]);
@@ -28,11 +28,17 @@ class Show extends Component {
     if(!this.state.clicked)
       return this.state.titles.map(title => {
         return (
-          <Segment title={title} onClick={this.handleClick}>
+          <Segment title={title} onClick={this.handleClick} onMouseOver={this.handleHoverin.bind(this)} onMouseOut={this.handleHoverout.bind(this)}>
             {title}
           </Segment>
         )
       });
+  }
+  handleHoverin(event) {
+    event.target.className="ui raised black segment";
+  }
+  handleHoverout(event) {
+    event.target.className="ui segment";
   }
 
   setMarkup() {
