@@ -68,9 +68,7 @@ class Create extends Component {
     );
   }
 
-  changeHtml() {
 
-  }
 
   render() {
     console.log(this.state);
