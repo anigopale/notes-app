@@ -84,7 +84,7 @@ class Create extends Component {
                   <Form.Group>
                     <Button onClick={() => {this.setState({ text: "", title: "" })}} secondary>Clear</Button>
                     <Button primary onClick={this.handleSubmit.bind(this)} >Save</Button>
-                    <Button onClick={() => {this.setState({preview: !this.state.preview })}}>Toggle Preview</Button>
+                    <Button onClick={() => {this.setState({preview: !this.state.preview })}} primary={this.state.preview}>Toggle Preview</Button>
                     {this.renderMarkupbutton()}
                   </Form.Group>
 
