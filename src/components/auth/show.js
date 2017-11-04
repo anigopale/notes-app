@@ -16,7 +16,7 @@ class Show extends Component {
     this.handleDelete=this.handleDelete.bind(this);
     this.onDownload=this.onDownload.bind(this);
 
-    this.state = { titles: [], title: "", text: "", clicked:false }
+    this.state = { titles: [], title: "", text: "", clicked:false, markup: false }
     for ( var key in localStorage ) {
       if(key != 'token')
         this.state.titles = _.uniq([...this.state.titles, key]);
@@ -38,7 +38,9 @@ class Show extends Component {
   setMarkup() {
     let text = marked(this.state.text, {sanitize:true});
     let title = (`<h1>${this.state.title}</h1>`);
-
+    if(this.state.markup) {
+      return { __html: this.state.title + this.state.text}
+    }
     return { __html: title+text };
 
   }
@@ -50,6 +52,7 @@ class Show extends Component {
         <Button onClick={()=>{this.setState({clicked: false})}} primary>Back</Button>
         <Button color="red" onClick={this.handleDelete} >Delete</Button>
         <Button secondary onClick={this.onDownload}>Download</Button>
+        <Button primary={this.state.markup} onClick={()=>{this.setState({markup: !this.state.markup})}}>html</Button>
         <Segment>
           <div dangerouslySetInnerHTML={this.setMarkup()} />
         </Segment>
