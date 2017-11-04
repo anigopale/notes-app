@@ -8,7 +8,7 @@ import { postNotes } from '../../actions';
 class Create extends Component {
   constructor(props){
     super(props);
-    this.state = { text: "", title: "", preview: false };
+    this.state = { text: "", title: "", preview: false, markup: false };
     this.setMarkup=this.setMarkup.bind(this);
   }
 
@@ -16,6 +16,9 @@ class Create extends Component {
     let text = marked(this.state.text, {sanitize:true});
     let title = (`<h1>${this.state.title}</h1>`);
     console.log("text begins here:",text);
+    if(this.state.markup){
+      return { __html: this.state.title+this.state.text}
+    }
     return { __html: title+text };
   }
 
@@ -57,6 +60,18 @@ class Create extends Component {
     this.props.postNotes(this.state.text, this.state.title);
   }
 
+  renderMarkupbutton() {
+    return (
+      <div>
+        <Button primary={this.state.markup} onClick={()=>{this.setState({markup: !this.state.markup})}}>html</Button>
+      </div>
+    );
+  }
+
+  changeHtml() {
+
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -72,6 +87,7 @@ class Create extends Component {
                     <Button onClick={() => {this.setState({ text: "", title: "" })}} secondary>Clear</Button>
                     <Button primary onClick={this.handleSubmit.bind(this)} >Save</Button>
                     <Button onClick={() => {this.setState({preview: !this.state.preview })}}>Toggle Preview</Button>
+                    {this.renderMarkupbutton()}
                   </Form.Group>
 
                     <Form.Input label="title" onChange={this.onTitleChange.bind(this)} value={this.state.title} placeholder="enter title" ></Form.Input>
